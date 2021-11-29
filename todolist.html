@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script type="text/javascript" src="/js/todolist.js"></script>
+</head>
+
+<body ng-app="todoApp">
+    <div ng-controller="TodolistController as a">
+        <p>{{a.title}}</p>
+        <span>{{a.remaining()}} of {{a.todos.length}} remaining</span>
+        <ul>
+            <li ng-repeat="todo in a.todos" ng-style="{true: {color: 'red'}, false: {}}[$a.todos.expansion]">
+                <label ng-click="a.showList(todo)">
+                    <input type="checkbox" disabled ng-show="!todo.del">
+                    <input type="checkbox" disabled ng-show="todo.del" checked>
+                    <span ng-show="!todo.del">{{todo.text}}</span>
+                    <del ng-show="todo.del" >{{todo.text}}</del>
+                </label>
+                <ul>
+                    <li ng-repeat="item in todo.list" ng-show="todo.expansion">
+                        <label>
+                            <input type="checkbox" ng-model="item.done" ng-change="a.check(todo)">
+                            <span ng-show="!item.done">{{item.text}}</span>
+                            <del ng-show="item.done">{{item.text}}</del>
+                        </label>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+    </div>
+</body>
+
+</html>
